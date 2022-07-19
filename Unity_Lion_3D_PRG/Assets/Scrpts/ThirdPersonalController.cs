@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -8,6 +9,17 @@ namespace agi
     /// </summary>
     public class ThirdPersonalController : MonoBehaviour
     {
+        #region Parameters 規劃
+        /* 基本移動：float BasicMove
+         * 跑步：float Running
+         * 跳躍：float toJump
+         * 受傷：bool toHurt
+         * 死亡：bool isDead
+         * [其他]
+         * 滯空：bool isAir
+         * 
+         */
+        #endregion
         #region Data
         [SerializeField, Header("Move Speed"), Range(0, 50)]
         private float moveSpd = 3.5f;
@@ -19,7 +31,12 @@ namespace agi
         private CharacterController ccller;
         private Transform tfCamera;
         private Vector3 direction;
-        private string parBMove = "BasicMove", parRun = "Running", parJmp= "toJump";
+        private string parBMove = "BasicMove", parRun = "Running", parJmp = "toJump", parHurt= "toHurt";
+        private bool isMove = false;
+        // 音效相關
+        private AudioSource ads;
+        [SerializeField, Header("人物音效")]
+        private List<AudioClip> clipList = new List<AudioClip>();
         #endregion
 
         #region Event
@@ -28,20 +45,31 @@ namespace agi
             ani = GetComponent<Animator>();
             ccller = GetComponent<CharacterController>();
             tfCamera = GameObject.Find("Main Camera").transform;
+            ads = GetComponent<AudioSource>();
         }
         private void Update()
         {
-            Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            isMove = Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             Jump();
             if (Input.GetAxis("Fire1") != 0) ani.SetTrigger("toHurt");
+            // 走路音效
+            if (isMove & !ads.isPlaying) InvokeRepeating("PlayWalk", 0.2f, 2.5f);
+            else CancelInvoke("PlayWalk");
         }
         #endregion
 
         #region Method
-        private void Move(float x, float z)
+        /// <summary>
+        /// 移動控制
+        /// </summary>
+        /// <param name="x">輸入水平軸</param>
+        /// <param name="z">輸入縱向軸</param>
+        private bool Move(float x, float z)
         {
-            direction.x = x ;
-            direction.z = z ;
+            if (ani.GetBool(parHurt)) return false;            
+            direction.x = x;
+            direction.z = z;
+            bool move = (x+z !=0)? true : false;
             float xSpeed = moveSpd;
             // 角色移動
             direction = transform.TransformDirection(direction);  //  將區域角度轉成世界角度
@@ -57,21 +85,47 @@ namespace agi
             // 動畫控制
             ani.SetFloat(parBMove, (x != 0) ? Mathf.Abs(x) : (z != 0) ? Mathf.Abs(z) : 0);
             if (Input.GetKey(KeyCode.LeftShift)) ani.SetFloat(parRun, (x != 0) ? Mathf.Abs(x) : (z != 0) ? Mathf.Abs(z) : 0);
+
+
+            return move;
         }
+        /// <summary>
+        /// 跳躍控制
+        /// </summary>
         private void Jump()
         {
             if (Input.GetKeyDown(KeyCode.Space) && ccller.isGrounded)
             {
                 direction.y = jumpSpd;
                 ani.SetFloat(parJmp, 1);
-            } else if  (!ccller.isGrounded) { ani.SetFloat(parJmp, 0.5f); }
+                SoundControl(1,1);
+            }
+            else if (!ccller.isGrounded) { ani.SetFloat(parJmp, 0.5f); }
             else ani.SetFloat(parJmp, 0f);
 
             direction.y += Physics.gravity.y * Time.deltaTime;
         }
-        private void FadeJump()
+        /// <summary>
+        /// 音效播放控制
+        /// </summary>
+        /// <param name="i">決定要撥放何種音效，建議放置音效編號為：
+        /// 0: 走路
+        /// 1: 跳躍
+        /// 2: 受傷
+        /// 3: 攻擊
+        /// </param>
+        private void SoundControl(int i, float vol)
         {
+            ads.volume = vol;
+            ads.PlayOneShot(clipList[i]);
 
+        }
+        /// <summary>
+        /// 調用走路音效，這項函數應給 Invoke 使用。
+        /// </summary>
+        private void PlayWalk()
+        {
+            SoundControl(0,0.4f);
         }
         #endregion
     }
