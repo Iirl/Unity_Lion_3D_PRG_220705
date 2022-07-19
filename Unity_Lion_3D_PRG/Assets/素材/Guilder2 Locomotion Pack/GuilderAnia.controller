@@ -186,7 +186,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: triHit
+    m_ConditionEvent: toHurt
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isDead
@@ -241,7 +241,7 @@ BlendTree:
     m_Motion: {fileID: -203655887218126122, guid: 38af293394489f44ca4aa1fcdc12bc11, type: 3}
     m_Threshold: 0.5
     m_Position: {x: -1, y: 0}
-    m_TimeScale: 1
+    m_TimeScale: -1
     m_CycleOffset: 0
     m_DirectBlendParameter: BasicMove
     m_Mirror: 0
@@ -265,12 +265,12 @@ BlendTree:
     m_Motion: {fileID: -203655887218126122, guid: 9d464bcee8ef72f4b8186a9e4c04820e, type: 3}
     m_Threshold: 1
     m_Position: {x: 1, y: 1}
-    m_TimeScale: 1
+    m_TimeScale: 0.8
     m_CycleOffset: 0
     m_DirectBlendParameter: BasicMove
     m_Mirror: 0
   m_BlendParameter: BasicMove
-  m_BlendParameterY: HighRun
+  m_BlendParameterY: Running
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
@@ -337,13 +337,13 @@ AnimatorController:
   m_Name: GuilderAnia
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: triHit
+  - m_Name: toHurt
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: triJump
+  - m_Name: toJump
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -367,7 +367,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: HighRun
+  - m_Name: Running
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -457,7 +457,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: triJump
+    m_ConditionEvent: toJump
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8569751743557531023}
