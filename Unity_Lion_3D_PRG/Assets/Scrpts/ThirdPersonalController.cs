@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 
 namespace agi
@@ -21,7 +23,7 @@ namespace agi
          */
         #endregion
         #region Data
-        [SerializeField, Header("Move Speed"), Range(0, 50)]
+        [SerializeField, Header("Move Speed"), Range(0.0f, 20f)]
         private float moveSpd = 3.5f;
         [SerializeField, Header("Spine Speed"), Range(0, 50)]
         private float spineSpd = 5f;
@@ -30,9 +32,10 @@ namespace agi
         private Animator ani;
         private CharacterController ccller;
         private Transform tfCamera;
+        private CinemachineFreeLook cfLook;
         private Vector3 direction;
-        private string parBMove = "BasicMove", parRun = "Running", parJmp = "toJump", parHurt= "toHurt";
-        private bool isMove = false;
+        private Motion actorMV;
+        private bool isMove = false, isJump = false;
         // 音效相關
         private AudioSource ads;
         [SerializeField, Header("人物音效")]
@@ -46,16 +49,30 @@ namespace agi
             ccller = GetComponent<CharacterController>();
             tfCamera = GameObject.Find("Main Camera").transform;
             ads = GetComponent<AudioSource>();
+            // 取得焦點
+            cfLook = GameObject.Find("第三人稱攝影機").GetComponent<CinemachineFreeLook>();
+        }
+        private void Start()
+        {
+            CameraFocus();
         }
         private void Update()
         {
             isMove = Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             Jump();
-            if (Input.GetAxis("Fire1") != 0) ani.SetTrigger("toHurt");
+            if (Input.GetAxis("Fire1") == 1)
+            {
+                AnimeControl(5);
+                Invoke("PlayShoot", 0.15f);
+            }
             // 走路音效
-            if (isMove & !ads.isPlaying) InvokeRepeating("PlayWalk", 0.2f, 2.5f);
-            else CancelInvoke("PlayWalk");
+            if (isMove) Invoke("PlayWalk", 0.5f);
         }
+        private void OnEnable()
+        {
+            CameraFocus();
+        }
+
         #endregion
 
         #region Method
@@ -66,6 +83,9 @@ namespace agi
         /// <param name="z">輸入縱向軸</param>
         private bool Move(float x, float z)
         {
+            string parBMove = Motion.BasicMove.ToString();
+            string parHurt = Motion.toHurt.ToString();
+            string parRun = Motion.Running.ToString();
             if (ani.GetBool(parHurt)) return false;            
             direction.x = x;
             direction.z = z;
@@ -82,9 +102,14 @@ namespace agi
             // 人物角度固定
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
 
-            // 動畫控制
-            ani.SetFloat(parBMove, (x != 0) ? Mathf.Abs(x) : (z != 0) ? Mathf.Abs(z) : 0);
-            if (Input.GetKey(KeyCode.LeftShift)) ani.SetFloat(parRun, (x != 0) ? Mathf.Abs(x) : (z != 0) ? Mathf.Abs(z) : 0);
+            // 動畫控制 x為左右； z 為前後
+            ani.SetFloat(parBMove, z/2);
+            ani.SetFloat(parRun, x/2);
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                ani.SetFloat(parBMove, ani.GetFloat(parBMove) * 2);
+                ani.SetFloat(parRun, z);
+            }
 
 
             return move;
@@ -92,18 +117,34 @@ namespace agi
         /// <summary>
         /// 跳躍控制
         /// </summary>
-        private void Jump()
+        private void Jump(Motion motion=Motion.toJump)
         {
-            if (Input.GetKeyDown(KeyCode.Space) && ccller.isGrounded)
+            if (Input.GetKeyDown(KeyCode.Space)) isJump = true;
+            if (isJump && ccller.isGrounded)
             {
                 direction.y = jumpSpd;
-                ani.SetFloat(parJmp, 1);
-                SoundControl(1,1);
+                ani.SetFloat(motion.ToString(), 1);
+                SoundControl(1, 1);
+                isJump = false;
             }
-            else if (!ccller.isGrounded) { ani.SetFloat(parJmp, 0.5f); }
-            else ani.SetFloat(parJmp, 0f);
-
+            else if (!ccller.isGrounded) { 
+                ani.SetFloat(motion.ToString(), 0.5f);
+                direction.x /= 2;
+                direction.z /= 2;
+            }
+            else
+            {
+                ani.SetFloat(motion.ToString(), 0f);
+                isJump = false;
+            }
             direction.y += Physics.gravity.y * Time.deltaTime;
+        }
+
+        private void CameraFocus()
+        {
+            cfLook.LookAt = this.transform;
+            cfLook.Follow = this.transform;
+
         }
         /// <summary>
         /// 音效播放控制
@@ -114,10 +155,15 @@ namespace agi
         /// 2: 受傷
         /// 3: 攻擊
         /// </param>
-        private void SoundControl(int i, float vol)
+        private void SoundControl(int i, float vol=0.7f, float pitch=1)
         {
             ads.volume = vol;
-            ads.PlayOneShot(clipList[i]);
+            ads.pitch = pitch;
+            try
+            {
+                ads.PlayOneShot(clipList[i]);
+            }
+            catch (Exception) { print($"The voice {i} not setting"); }
 
         }
         /// <summary>
@@ -125,8 +171,45 @@ namespace agi
         /// </summary>
         private void PlayWalk()
         {
-            SoundControl(0,0.4f);
+            float pth = 1;
+            if (Input.GetKey(KeyCode.LeftShift)) pth = 1.5f;
+            SoundControl(0,0.4f,pth);
+            CancelInvoke("PlayWalk");
+        }
+        public void PlayShoot()
+        {                       
+            SoundControl(3);
+            CancelInvoke("PlayShoot");
+        }
+        /// <summary>
+        /// 動畫執行控制，所有動畫設定在這裡設。
+        /// </summary>
+        public void AnimeControl(int idx)
+        {
+            foreach (var m in Enum.GetValues(typeof(Motion))) if ((int)m == idx) actorMV = (Motion)m;
+            try
+            {
+                if (idx == 1) ani.SetTrigger(actorMV.ToString());
+                //else if (idx == 4) isJump = true;
+                else if (idx == 5) ani.SetTrigger(actorMV.ToString());
+
+            }
+            catch (Exception)
+            {
+                print($"not set animate parameter {actorMV}");
+            }
+
         }
         #endregion
+
+        enum Motion
+        {
+            None,
+            toHurt,
+            BasicMove, 
+            Running,
+            toJump,
+            isShoot
+        }
     }
 }
