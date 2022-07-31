@@ -60,11 +60,6 @@ namespace agi
         {
             isMove = Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             Jump();
-            if (Input.GetAxis("Fire1") == 1)
-            {
-                AnimeControl(5);
-                Invoke("PlayShoot", 0.15f);
-            }
             // 走路音效
             if (isMove) Invoke("PlayWalk", 0.5f);
         }
@@ -209,7 +204,10 @@ namespace agi
             BasicMove, 
             Running,
             toJump,
-            isShoot
+            isShoot,
+            toSWAtk,
+            toSWHeavy,
+            actBlock
         }
     }
 }
