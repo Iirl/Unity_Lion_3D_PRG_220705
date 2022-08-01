@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eaa47a9adcabae499a318588062dc91, type: 3}
+  m_Name: DataNPC
+  m_EditorClassIdentifier: 
+  names: Guilder
+  color: {r: 1, g: 0.4198113, b: 0.65781003, a: 0.49411765}
+  dialog:
+  - content: "Hello, \u4F60\u597D"
+    sound: {fileID: 8300000, guid: fca6c33577157f048b4e9a39eb589937, type: 3}
+  - content: "\u4ECA\u5929\u5929\u6C23\u771F\u597D"
+    sound: {fileID: 8300000, guid: fba969a425cea6b47a95cd2bcd72a1fe, type: 3}
+  - content: ......
+    sound: {fileID: 8300000, guid: e85a60d1e26da7a4a9aacfd38dc7dd46, type: 3}
