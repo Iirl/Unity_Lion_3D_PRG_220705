@@ -558,7 +558,7 @@ GameObject:
   - component: {fileID: 365850419}
   - component: {fileID: 365850420}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: Cube (S)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -603,7 +603,7 @@ GameObject:
   - component: {fileID: 377028112}
   - component: {fileID: 377028113}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Cube E
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3595,6 +3595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcData: {fileID: 11400000, guid: 7b5e9e349d6359949b13d4b1202366c1, type: 2}
+  npcCam: {fileID: 1620516824}
 --- !u!54 &1359707520
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4044,7 +4045,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1721170981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4144,10 +4145,9 @@ MonoBehaviour:
   nameNPC_img: {fileID: 851013797}
   contentNPC: {fileID: 2136365364}
   second: 0.08
-  typefTimes: 0.123
-  autoTimes: 1
+  typefTimes: 0.062
+  autoTimes: 0.33
   trangle: {fileID: 1032162800}
-  npcData: {fileID: 11400000, guid: 7b5e9e349d6359949b13d4b1202366c1, type: 2}
 --- !u!82 &1721170986
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4527,7 +4527,7 @@ GameObject:
   - component: {fileID: 1877159275}
   - component: {fileID: 1877159276}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Cube (W)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4782,7 +4782,7 @@ GameObject:
   - component: {fileID: 2055038896}
   - component: {fileID: 2055038897}
   m_Layer: 0
-  m_Name: Cube (3)
+  m_Name: Cube (N)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

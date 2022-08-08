@@ -70,6 +70,13 @@ namespace agi
 
         #endregion
 
+        public void  StopMove()
+        {
+            ani.SetFloat(Motion.BasicMove.ToString(), 0);
+            ani.SetFloat(Motion.Running.ToString(), 0);
+        }
+
+
         #region Method
         /// <summary>
         /// ²¾°Ê±±¨î

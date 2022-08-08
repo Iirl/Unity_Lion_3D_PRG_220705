@@ -29,8 +29,8 @@ namespace agi
         private float autoTimes = 0.5f;
         [SerializeField, Header("對話標記")]
         private GameObject trangle;
-        [Header("對話資料")]
-        public DataNPC npcData;
+        //[Header("對話資料")]
+        private DataNPC npcData;
         /// <summary>
         /// 
         /// </summary>
@@ -46,10 +46,14 @@ namespace agi
         /// 啟動對話框
         /// </summary>
         /// <returns></returns>
-        private IEnumerator StartDialogSystem()
+        /// 使用委任來取得NPC System 的方法。
+        public delegate void DialogueFinshFunction();
+        public IEnumerator StartDialogSystem(DataNPC npcData, DialogueFinshFunction callback)
         {
+            this.npcData = npcData;
             nameNPC.text = npcData.names;
             nameNPC_img.color = npcData.color;
+            //print("Open Dialog");
             yield return StartCoroutine(FadeEffect(true));
 
             for (int i = 0; i < npcData.dialog.Length; i++)
@@ -60,8 +64,13 @@ namespace agi
             }
 
             yield return StartCoroutine(FadeEffect(false));
-
+            callback();
         }
+        /// <summary>
+        /// 打字效果
+        /// </summary>
+        /// <param name="idxDia"></param>
+        /// <returns></returns>
         private IEnumerator TypeEffect(int idxDia)
         {
             ads.PlayOneShot(npcData.dialog[idxDia].sound);
@@ -78,6 +87,11 @@ namespace agi
             trangle.SetActive(true);
             yield return new WaitForSeconds(autoTimes);
         }
+        /// <summary>
+        /// 淡入淡出功能
+        /// </summary>
+        /// <param name="isIn"></param>
+        /// <returns></returns>
         private IEnumerator FadeEffect(bool isIn)
         {
             float apai = isIn ? 0.1f : -0.1f;
@@ -86,6 +100,7 @@ namespace agi
                 dialog.alpha += apai;
                 yield return new WaitForSeconds(second);
             }
+            if (!isIn) contentNPC.text = "";
             CanvasCtrl(dialog, isIn);
         }
         /// <summary>
@@ -114,7 +129,7 @@ namespace agi
         {
             ads = GetComponent<AudioSource>();
             DNClear();
-            StartCoroutine(StartDialogSystem());
+            //StartCoroutine(StartDialogSystem());
         }
         #endregion
     }

@@ -15,7 +15,7 @@ MonoBehaviour:
   names: Guilder
   color: {r: 1, g: 0.4198113, b: 0.65781003, a: 0.49411765}
   dialog:
-  - content: "\u4F60\u597D\uFF0C\u52C7\u8005\u3002"
+  - content: "\u4F60\u597D\uFF0C\u9019\u88E1\u662F\u806F\u5408\u5192\u96AA\u8005\u516C\u6703\u7684\u5C0E\u89BD\u54E1\u3002"
     sound: {fileID: 8300000, guid: fca6c33577157f048b4e9a39eb589937, type: 3}
   - content: "\u4ECA\u5929\u5929\u6C23\u771F\u597D\uFF0C\u662F\u500B\u9069\u5408\u6BBA\u622E\u7684\u5929\u6C23\u5462\u3002"
     sound: {fileID: 8300000, guid: fba969a425cea6b47a95cd2bcd72a1fe, type: 3}
