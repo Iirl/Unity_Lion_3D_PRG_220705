@@ -21,14 +21,20 @@ namespace agi
         private Image nameNPC_img;
         [SerializeField, Header("對話內容")]
         private TextMeshProUGUI contentNPC;
-        [SerializeField, Header("對話框時間"), Range(0f,1f)]
+        [SerializeField, Header("對話框時間"), Range(0f, 1f)]
         private float second;
+        [SerializeField, Range(0f, 0.5f)]
+        private float typefTimes = 0.2f;
+        [SerializeField, Range(0f, 1f)]
+        private float autoTimes = 0.5f;
         [SerializeField, Header("對話標記")]
         private GameObject trangle;
-
-        private AudioSource ads;
-
+        [Header("對話資料")]
         public DataNPC npcData;
+        /// <summary>
+        /// 
+        /// </summary>
+        private AudioSource ads;
 
 
         private void DNClear()
@@ -36,29 +42,51 @@ namespace agi
             contentNPC.text = "";
             nameNPC.text = "";
         }
-
-        private IEnumerator DialogLoad()
+        /// <summary>
+        /// 啟動對話框
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator StartDialogSystem()
         {
             nameNPC.text = npcData.names;
             nameNPC_img.color = npcData.color;
-            ads.PlayOneShot(npcData.dialog[0].sound);
-            string content = npcData.dialog[0].content;
+            yield return StartCoroutine(FadeEffect(true));
+
+            for (int i = 0; i < npcData.dialog.Length; i++)
+            {
+                yield return StartCoroutine(TypeEffect(i));
+                while (!Input.GetKeyDown(KeyCode.E)) yield return null;
+                trangle.SetActive(false);
+            }
+
+            yield return StartCoroutine(FadeEffect(false));
+
+        }
+        private IEnumerator TypeEffect(int idxDia)
+        {
+            ads.PlayOneShot(npcData.dialog[idxDia].sound);
+            string content = npcData.dialog[idxDia].content;
+            /// 打字效果
+            contentNPC.text = "";
             for (int i = 0; i < content.Length; i++)
             {
                 contentNPC.text += content[i];
-                yield return new WaitForSeconds(0.01f);
+                yield return new WaitForSeconds(typefTimes);
+
 
             }
             trangle.SetActive(true);
+            yield return new WaitForSeconds(autoTimes);
         }
-        private IEnumerator FadIN()
+        private IEnumerator FadeEffect(bool isIn)
         {
+            float apai = isIn ? 0.1f : -0.1f;
             for (int i = 0; i < 10; i++)
             {
-                dialog.alpha += 0.1f;
+                dialog.alpha += apai;
                 yield return new WaitForSeconds(second);
             }
-            CanvasCtrl(dialog, true);
+            CanvasCtrl(dialog, isIn);
         }
         /// <summary>
         /// 畫布群組開關
@@ -86,8 +114,7 @@ namespace agi
         {
             ads = GetComponent<AudioSource>();
             DNClear();
-            StartCoroutine(FadIN());
-            StartCoroutine(DialogLoad());
+            StartCoroutine(StartDialogSystem());
         }
         #endregion
     }
