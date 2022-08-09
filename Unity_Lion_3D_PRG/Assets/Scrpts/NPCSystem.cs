@@ -60,7 +60,7 @@ namespace agi
                 playerCtrl = obj.GetComponent<ThirdPersonalController>();
                 playerAtk = obj.GetComponent<AttackController>();
             }
-            print($"進入狀態:{isTrigger}");
+            //print($"進入狀態:{isTrigger}");
         }
 
         /// <summary>
