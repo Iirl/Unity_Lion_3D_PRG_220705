@@ -134,8 +134,8 @@ GameObject:
   - component: {fileID: 19098742}
   - component: {fileID: 19098741}
   m_Layer: 0
-  m_Name: "NPC1\u651D\u5F71\u6A5F (FOX)"
-  m_TagString: Untagged
+  m_Name: "NPC\u651D\u5F71\u6A5F FOX"
+  m_TagString: NPC.Camera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -475,7 +475,7 @@ GameObject:
   - component: {fileID: 121944861}
   - component: {fileID: 121944864}
   - component: {fileID: 121944863}
-  - component: {fileID: 121944862}
+  - component: {fileID: 121944865}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -498,28 +498,6 @@ Transform:
   m_Father: {fileID: 1620516826}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &121944862
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 121944860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 0, z: -10}
-  m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
-  m_AngularDampingMode: 0
-  m_PitchDamping: 0
-  m_YawDamping: 0
-  m_RollDamping: 0
-  m_AngularDamping: 0
 --- !u!114 &121944863
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -559,6 +537,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &121944865
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121944860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6043bde05a7fc4cba197d06915c1e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damping: {x: 0.1, y: 0.5, z: 0.3}
+  ShoulderOffset: {x: 0.5, y: 2, z: -6}
+  VerticalArmLength: 0.4
+  CameraSide: 0.24
+  CameraDistance: 1
+  CameraCollisionFilter:
+    serializedVersion: 2
+    m_Bits: 0
+  IgnoreTag: 
+  CameraRadius: 0.2
+  DampingIntoCollision: 0
+  DampingFromCollision: 2
 --- !u!4 &292117960 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8009666570721041104, guid: eb9e0e34afb15db41b132ff35529886a, type: 3}
@@ -918,7 +920,7 @@ GameObject:
   - component: {fileID: 593508414}
   - component: {fileID: 593508417}
   - component: {fileID: 593508416}
-  - component: {fileID: 593508415}
+  - component: {fileID: 593508418}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -941,28 +943,6 @@ Transform:
   m_Father: {fileID: 19098742}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &593508415
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 593508413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 0, z: -10}
-  m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
-  m_AngularDampingMode: 0
-  m_PitchDamping: 0
-  m_YawDamping: 0
-  m_RollDamping: 0
-  m_AngularDamping: 0
 --- !u!114 &593508416
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1002,6 +982,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &593508418
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593508413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6043bde05a7fc4cba197d06915c1e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damping: {x: 0.1, y: 0.5, z: 0.3}
+  ShoulderOffset: {x: 0.5, y: 3, z: -6}
+  VerticalArmLength: 0.4
+  CameraSide: 0.35
+  CameraDistance: 1
+  CameraCollisionFilter:
+    serializedVersion: 2
+    m_Bits: 0
+  IgnoreTag: 
+  CameraRadius: 0.2
+  DampingIntoCollision: 0
+  DampingFromCollision: 2
 --- !u!1 &599949577
 GameObject:
   m_ObjectHideFlags: 0
@@ -4134,8 +4138,8 @@ GameObject:
   - component: {fileID: 1620516826}
   - component: {fileID: 1620516825}
   m_Layer: 0
-  m_Name: "NPC1\u651D\u5F71\u6A5F"
-  m_TagString: Untagged
+  m_Name: "NPC\u651D\u5F71\u6A5F Gulider"
+  m_TagString: NPC.Camera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5509,8 +5513,8 @@ MonoBehaviour:
 
     ContentContentContentContentContent...'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 79c45aa0862c7c74fbc31b38ba7924b4, type: 2}
-  m_sharedMaterial: {fileID: 2811812079080512173, guid: 79c45aa0862c7c74fbc31b38ba7924b4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f056ba22d89174a4da955af669d03b2b, type: 2}
+  m_sharedMaterial: {fileID: 6122546132784098663, guid: f056ba22d89174a4da955af669d03b2b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

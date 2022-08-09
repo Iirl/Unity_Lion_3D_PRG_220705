@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 namespace agi
 {
@@ -13,10 +14,13 @@ namespace agi
         DataNPC npcData;
         [SerializeField, Header("NPC Camera")]
         GameObject npcCam;
+        CinemachineVirtualCamera npcCam_machine;
         ThirdPersonalController playerCtrl;
         AttackController playerAtk;
         DiaSystem diaSystem;
         Animator aniTalkTips,ani;
+        Vector3 Player_loc;
+        Quaternion Self_rot;
         string parTalk = "TalkIn",parNpcTalk = "isTalk";
         bool isTrigger;
 
@@ -25,6 +29,9 @@ namespace agi
             aniTalkTips = GameObject.Find("對話提示系統").GetComponent<Animator>();
             ani = GetComponent<Animator>();
             diaSystem = FindObjectOfType<DiaSystem>();
+            npcCam_machine = npcCam.GetComponent<CinemachineVirtualCamera>();
+            //
+            Self_rot = transform.rotation;
         }
         #region 動態事件處理
         private void Update()
@@ -55,7 +62,9 @@ namespace agi
         private void PlayerTraggerEvent(bool enter, GameObject obj)
         {
             if (obj.tag.Contains("Player")) {
+                npcCam_machine.m_Follow = obj.transform;
                 aniTalkTips.SetBool(parTalk, enter);
+                Player_loc = obj.transform.position;
                 isTrigger = enter;
                 playerCtrl = obj.GetComponent<ThirdPersonalController>();
                 playerAtk = obj.GetComponent<AttackController>();
@@ -70,12 +79,15 @@ namespace agi
         private IEnumerator OpenDialog()
         {
             // 開始對話
+            transform.LookAt(Player_loc);
             npcCam.SetActive(isTrigger);
             playerAtk.enabled = !isTrigger;
             playerCtrl.enabled = !isTrigger;
             playerCtrl.StopMove();
             aniTalkTips.SetBool(parTalk, false);
             ani.SetBool(parNpcTalk, isTrigger);
+            yield return new WaitForSeconds(0.5f);
+            npcCam_machine.m_Follow = null;
             isTrigger = false; // 切換狀態
             yield return StartCoroutine(diaSystem.StartDialogSystem(npcData,StateReset));
             // 對話結束
@@ -84,6 +96,7 @@ namespace agi
             npcCam.SetActive(isTrigger);
             playerAtk.enabled = !isTrigger;
             playerCtrl.enabled = !isTrigger;
+            isTrigger = true; // 切換狀態
 
         }
         /// <summary>
@@ -93,6 +106,7 @@ namespace agi
         {
             //放入要做的事
             ani.SetBool(parNpcTalk, false);
+            transform.rotation = Self_rot;
         }
     }
 }

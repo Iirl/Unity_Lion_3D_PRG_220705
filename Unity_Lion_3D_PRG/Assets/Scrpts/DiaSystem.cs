@@ -73,7 +73,12 @@ namespace agi
         /// <returns></returns>
         private IEnumerator TypeEffect(int idxDia)
         {
-            ads.PlayOneShot(npcData.dialog[idxDia].sound);
+            try
+            {   // 欠缺也可以繼續執行的程式放這
+                if (npcData.dialog[idxDia].sound!=null) ads.PlayOneShot(npcData.dialog[idxDia].sound);
+
+            }
+            catch (System.Exception)   {            }
             string content = npcData.dialog[idxDia].content;
             /// 打字效果
             contentNPC.text = "";
