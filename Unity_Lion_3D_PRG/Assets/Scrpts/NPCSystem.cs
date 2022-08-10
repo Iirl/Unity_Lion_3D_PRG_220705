@@ -15,12 +15,14 @@ namespace agi
         [SerializeField, Header("NPC Camera")]
         GameObject npcCam;
         CinemachineVirtualCamera npcCam_machine;
+        // 取得玩家資料與控制器元件
         ThirdPersonalController playerCtrl;
         AttackController playerAtk;
-        DiaSystem diaSystem;
-        Animator aniTalkTips,ani;
         Vector3 Player_loc;
         Quaternion Self_rot;
+        // 對話系統處理
+        DiaSystem diaSystem;
+        Animator aniTalkTips,ani;
         string parTalk = "TalkIn",parNpcTalk = "isTalk";
         bool isTrigger;
 

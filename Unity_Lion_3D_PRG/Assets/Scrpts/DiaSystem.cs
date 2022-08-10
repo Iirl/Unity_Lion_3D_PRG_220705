@@ -47,6 +47,7 @@ namespace agi
         /// </summary>
         /// <returns></returns>
         /// 使用委任來取得NPC System 的方法。
+        // 將對話系統設為公開，再使用委任來接收傳遞過來的方法
         public delegate void DialogueFinshFunction();
         public IEnumerator StartDialogSystem(DataNPC npcData, DialogueFinshFunction callback)
         {
@@ -58,8 +59,9 @@ namespace agi
 
             for (int i = 0; i < npcData.dialog.Length; i++)
             {
-                yield return StartCoroutine(TypeEffect(i));
+                yield return StartCoroutine(TypeEffect(i));                
                 while (!Input.GetKeyDown(KeyCode.E)) yield return null;
+                if (Input.GetKeyDown(KeyCode.E)) ads.Stop();
                 trangle.SetActive(false);
             }
 

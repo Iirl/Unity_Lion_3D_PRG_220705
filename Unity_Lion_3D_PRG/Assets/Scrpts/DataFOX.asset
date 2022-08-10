@@ -15,5 +15,5 @@ MonoBehaviour:
   names: "\u5C0F\u72D0\u72F8"
   color: {r: 0.754717, g: 0.46905395, b: 0.26699895, a: 0.72156864}
   dialog:
-  - content: "\u6211\u53EA\u662F\u500B\u72D0\u72F8"
-    sound: {fileID: 0}
+  - content: "...............................\u554A?"
+    sound: {fileID: 8300000, guid: 3c655c9408835364fa01db3693bf57b5, type: 3}

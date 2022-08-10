@@ -15,13 +15,11 @@ MonoBehaviour:
   names: Guilder
   color: {r: 1, g: 0.4198113, b: 0.65781003, a: 0.49411765}
   dialog:
-  - content: "\u4F60\u597D\uFF0C\u9019\u88E1\u662F\u806F\u5408\u5192\u96AA\u8005\u516C\u6703\u7684\u5C0E\u89BD\u54E1\u3002"
-    sound: {fileID: 8300000, guid: fca6c33577157f048b4e9a39eb589937, type: 3}
+  - content: "\u4F60\u597D\uFF0C\u9019\u88E1\u662F\u806F\u5408\u5192\u96AA\u8005\u516C\u6703\u7345\u5B50\u5206\u7F72\u7684\u5C0E\u89BD\u54E1~\u3002"
+    sound: {fileID: 8300000, guid: da9e6065675007c4ca9384dc7bd4a903, type: 3}
   - content: "\u4ECA\u5929\u5929\u6C23\u771F\u597D\uFF0C\u662F\u500B\u9069\u5408\u6BBA\u622E\u7684\u5929\u6C23\u5462\u3002"
-    sound: {fileID: 8300000, guid: fba969a425cea6b47a95cd2bcd72a1fe, type: 3}
-  - content: ......
-    sound: {fileID: 8300000, guid: e85a60d1e26da7a4a9aacfd38dc7dd46, type: 3}
-  - content: "\u539F\u4F86\u4F60\u4E0D\u77E5\u9053\u81EA\u5DF1\u5728\u54EA\uFF0C\u4E5F\u4E0D\u77E5\u9053\u81EA\u5DF1\u8A72\u505A\u5565\uFF1F"
-    sound: {fileID: 8300000, guid: c1d18d8f7bc808c46964ffe02bd3e75a, type: 3}
+    sound: {fileID: 8300000, guid: 652ca1641d148834882513a4cb46174f, type: 3}
+  - content: "......\u539F\u4F86\u4F60\u4E0D\u77E5\u9053\u81EA\u5DF1\u5728\u54EA\uFF0C\u4E5F\u4E0D\u77E5\u9053\u81EA\u5DF1\u8A72\u505A\u5565\uFF1F"
+    sound: {fileID: 8300000, guid: c7ee97d89cda7d348bd981dd8e46a1ff, type: 3}
   - content: "\u90A3\u9EBB\u7169\u5728\u9019\u908A\u7C3D\u500B\u5B57\uFF0C\u7167\u8457\u4E0A\u9762\u7684\u6307\u793A\u505A\u5C31\u53EF\u4EE5\u56DE\u5BB6\u5537\uFF01"
-    sound: {fileID: 8300000, guid: b223f221e4982a244b3b775fe17f39a2, type: 3}
+    sound: {fileID: 8300000, guid: 0d2cfca9865eb6249844478c917a2321, type: 3}
