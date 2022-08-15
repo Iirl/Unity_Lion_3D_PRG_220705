@@ -24,6 +24,10 @@ namespace agi
         public float probilityItem=0.5f;
         [SerializeField, Header("等待時間範圍")]
         public Vector2 waitTimeRange;
+        [SerializeField, Header("追蹤對象")]
+        public LayerMask target_msak;
+        [SerializeField, Header("攻擊時間"), Range(1, 9)]
+        public float intervalAtkTime;
         [SerializeField, Header("掉落道具")]
         private GameObject DropItem;
     }

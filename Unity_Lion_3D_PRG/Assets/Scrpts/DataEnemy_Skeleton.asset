@@ -20,4 +20,8 @@ MonoBehaviour:
   speedWalk: 4
   probilityItem: 0.5
   waitTimeRange: {x: 1, y: 5}
+  target_msak:
+    serializedVersion: 2
+    m_Bits: 64
+  intervalAtkTime: 0
   DropItem: {fileID: 0}

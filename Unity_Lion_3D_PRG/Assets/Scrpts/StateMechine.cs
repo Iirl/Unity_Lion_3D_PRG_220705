@@ -13,7 +13,15 @@ namespace agi
         }
         static public GeneMotion ToWait()
         {
-            return state = GeneMotion.None;
+            return state = GeneMotion.isIdel;
+        }
+        static public GeneMotion ToTrack()
+        {
+            return state = GeneMotion.toTrack;
+        }
+        static public GeneMotion ToAtk()
+        {
+            return state = GeneMotion.isAtking;
         }
         static public GeneMotion ToHurt()
         {
@@ -47,9 +55,11 @@ namespace agi
 #endregion
 public enum GeneMotion
 {
-    None,
+    isIdel,
     Running,
     toJump,
+    toTrack,
+    isAtking,
     toHurt,
     isDead,
 }

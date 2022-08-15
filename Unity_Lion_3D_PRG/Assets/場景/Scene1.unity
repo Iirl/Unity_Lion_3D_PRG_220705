@@ -1956,6 +1956,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skeleton@Skin
       objectReference: {fileID: 0}
+    - target: {fileID: 100078, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 400078, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -3509,7 +3513,7 @@ GameObject:
   - component: {fileID: 1741904638}
   - component: {fileID: 1741904636}
   - component: {fileID: 1741904639}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: "\u5C0F\u660E"
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -4891,6 +4895,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataEnemy: {fileID: 11400000, guid: 2d4b94b46123a40469a58a3b548c8ef8, type: 2}
+  enemyState: 0
+  target_msak:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!195 &1629440449
 NavMeshAgent:
   m_ObjectHideFlags: 0

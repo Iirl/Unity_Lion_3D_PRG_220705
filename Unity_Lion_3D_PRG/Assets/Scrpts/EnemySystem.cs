@@ -9,41 +9,43 @@ namespace agi
     {
         [SerializeField, Header("敵人資料")]
         private DataEnemy dataEnemy;
-        [SerializeField]
-        GeneMotion enemyState;
-
-        Animator ani;
-        NavMeshAgent nma;
-
         private Vector3 original;
+        [SerializeField]
+        private GeneMotion enemyState;
         private Vector3 target_v3;
+
+        NavMeshAgent nma;
+        Animator ani;
         private float timeIdel;
+        private float atkTime;
 
         private void StateSwitch()
         {
             switch (enemyState)
             {
-                case GeneMotion.None:
+                case GeneMotion.isIdel:
                     Idel();
-                    break;
-                case GeneMotion.toHurt:
-                    break;
-                case GeneMotion.isDead:
                     break;
                 case GeneMotion.Running:
                     StartCoroutine(Wander());
                     break;
-                case GeneMotion.toJump:
+                case GeneMotion.toTrack:
+                    Track();
+                    break;
+                case GeneMotion.isAtking:
+                    Attack();
                     break;
                 default:
                     break;
             }
         }
-
+        /// <summary>
+        /// 停止狀態
+        /// </summary>
         private void Idel()
         {
             nma.velocity = Vector3.zero;
-            AnimateControl(0);
+            MoveAnimateControl(0);
             timeIdel += Time.deltaTime;
             float rnd = Random.Range(dataEnemy.waitTimeRange.x, dataEnemy.waitTimeRange.y);
             if (timeIdel > rnd)
@@ -53,14 +55,18 @@ namespace agi
             }
 
         }
+        /// <summary>
+        /// 漫遊狀態
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator Wander()
         {
-            AnimateControl();
+            MoveAnimateControl();
             nma.speed = dataEnemy.speedWalk;
             nma.SetDestination(target_v3);            
             while (nma.remainingDistance > 1) yield return null;
             if (nma.remainingDistance < 1) {
-                AnimateControl(0.1f);
+                MoveAnimateControl(0.1f);
                 target_v3 = original + Random.insideUnitSphere * dataEnemy.rangeTrack;
                 target_v3.y = transform.position.y;
                 yield return new WaitForSeconds(0.5f);
@@ -68,17 +74,57 @@ namespace agi
 
             }
         }
-        private void AnimateControl(float f=1)
+
+        private void CheckTargetTrackObject()
         {
-            switch (enemyState)
+            if (enemyState == GeneMotion.isAtking) return;
+            Collider[] hits = Physics.OverlapSphere(transform.position + Vector3.up, dataEnemy.rangeTrack, dataEnemy.target_msak);
+            if (hits.Length > 0)
             {
-                case GeneMotion.Running:
-                    ani.SetFloat(enemyState.ToString(), f);
-                    break;
-                default:
-                    ani.SetFloat(GeneMotion.Running.ToString(), 0);
-                    break;
+                //print($"碰到物件 {hits[0].name}");
+                //transform.LookAt(hits[0].transform);
+                target_v3 = hits[0].transform.position;
+                enemyState = StateMechine.ToTrack();
             }
+        }
+
+        private void Track()
+        {
+            nma.SetDestination(target_v3);
+            MoveAnimateControl(0.3f);
+            if (Vector3.Distance(transform.position, target_v3) < dataEnemy.rangeAttack)
+            {
+                //print("捕捉目標");
+                enemyState = StateMechine.ToAtk();
+                ani.SetBool(GeneMotion.isAtking.ToString(),true);
+            } else
+            {
+                ani.SetBool(GeneMotion.isAtking.ToString(), false);
+            }
+
+        }
+
+        private void Attack()
+        {
+            //if (nma.remainingDistance > dataEnemy.rangeAttack) enemyState = StateMechine.ToTrack();
+            nma.velocity = Vector3.zero;
+
+            if (atkTime > dataEnemy.intervalAtkTime) { 
+                ani.SetTrigger("toAtk");
+                atkTime = 0;
+            } else
+            {
+                atkTime += Time.deltaTime;
+            }
+        }
+        /// <summary>
+        /// 移動動畫控制系統
+        /// </summary>
+        /// <param name="f"></param>
+        private void MoveAnimateControl(float f=1)
+        {
+            ani.SetFloat(GeneMotion.Running.ToString(), f);
+
         }
 
         #region 事件區域
@@ -96,6 +142,7 @@ namespace agi
         private void Update()
         {
             StateSwitch();
+            if(!enemyState.Equals("isAtking")) CheckTargetTrackObject();
         }
         private void OnDrawGizmosSelected()
         {
