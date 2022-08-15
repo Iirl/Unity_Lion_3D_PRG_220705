@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-
 namespace agi
 {
     /// <summary>
@@ -55,6 +54,7 @@ namespace agi
         private void Start()
         {
             CameraFocus();
+            
         }
         private void Update()
         {
