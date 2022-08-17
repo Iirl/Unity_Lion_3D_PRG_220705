@@ -13,6 +13,10 @@ namespace Valve.VR.InteractionSystem
 	//-------------------------------------------------------------------------
 	public class Teleport : MonoBehaviour
     {
+		GameObject spawnSystem;
+		#region Data
+		[SerializeField, Header("是否顯示教學")]
+		private bool isCheckTrotual;
         public SteamVR_Action_Boolean teleportAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Teleport");
 
         public LayerMask traceLayerMask;
@@ -139,8 +143,10 @@ namespace Valve.VR.InteractionSystem
 		}
 
 
-		//-------------------------------------------------
-		void Awake()
+        //-------------------------------------------------
+
+        #endregion
+        void Awake()
         {
             _instance = this;
 
@@ -167,6 +173,9 @@ namespace Valve.VR.InteractionSystem
 			float invalidReticleStartingScale = invalidReticleTransform.localScale.x;
 			invalidReticleMinScale *= invalidReticleStartingScale;
 			invalidReticleMaxScale *= invalidReticleStartingScale;
+
+			//
+			spawnSystem = GameObject.Find("計分器");
 		}
 
 
@@ -188,7 +197,7 @@ namespace Valve.VR.InteractionSystem
 
 			CheckForSpawnPoint();
 
-			Invoke( "ShowTeleportHint", 5.0f );
+			if (isCheckTrotual) Invoke( "ShowTeleportHint", 5.0f );
 		}
 
 
@@ -864,7 +873,8 @@ namespace Valve.VR.InteractionSystem
 
 			TeleportPoint teleportPoint = teleportingToMarker as TeleportPoint;
 			Vector3 teleportPosition = pointedAtPosition;
-
+			//// 傳送點: 二分
+			spawnSystem.SendMessage("ChangeScore", 2);
 			if ( teleportPoint != null )
 			{
 				teleportPosition = teleportPoint.transform.position;
@@ -878,6 +888,8 @@ namespace Valve.VR.InteractionSystem
 			}
 
 			// Find the actual floor position below the navigation mesh
+			// 傳送區域: 三分
+			spawnSystem.SendMessage("ChangeScore", 3);
 			TeleportArea teleportArea = teleportingToMarker as TeleportArea;
 			if ( teleportArea != null )
 			{
