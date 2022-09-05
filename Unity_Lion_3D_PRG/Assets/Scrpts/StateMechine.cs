@@ -1,46 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace agi
 {
     static public class StateMechine
     {
-        static private GeneMotion state;
-        static public GeneMotion GetMotion()
-        {
-            return state;
-        }
-        static public GeneMotion ToWait()
-        {
-            return state = GeneMotion.isIdel;
-        }
-        static public GeneMotion ToTrack()
-        {
-            return state = GeneMotion.toTrack;
-        }
-        static public GeneMotion ToAtk()
-        {
-            return state = GeneMotion.isAtking;
-        }
-        static public GeneMotion ToHurt()
-        {
-            return state = GeneMotion.toHurt;
-        }
-        static public GeneMotion ToDead()
-        {
-            return state = GeneMotion.isDead;
-        }
-        static public GeneMotion ToRun()
-        {
-            return state = GeneMotion.Running;
-        }
-        static public GeneMotion ToJump()
-        {
-            return state = GeneMotion.toJump;
-        }
+        static public string state(this GeneMotion st) => st.ToString();
+        static public int stateInt(this GeneMotion st) => (int)st;
+        static public GeneMotion stateInt(this GeneMotion st, int i) => st = (GeneMotion)i;
+        static public GeneMotion ToWait(this GeneMotion st) => GeneMotion.isIdel;
+        static public GeneMotion ToTrack(this GeneMotion st) => GeneMotion.toTrack;
+        static public GeneMotion ToAtk(this GeneMotion st) => GeneMotion.isAtking;
+        static public GeneMotion ToHurt(this GeneMotion st) => GeneMotion.toHurt;
+        static public GeneMotion ToDead(this GeneMotion st) => GeneMotion.isDead;
+        static public GeneMotion ToRun(this GeneMotion st) => GeneMotion.Running;
+        static public GeneMotion ToJump(this GeneMotion st) => GeneMotion.toJump;
     }
 }
+
 
 #region Parameters 規劃
 /* 基本移動：float BasicMove

@@ -23,5 +23,5 @@ MonoBehaviour:
   target_msak:
     serializedVersion: 2
     m_Bits: 64
-  intervalAtkTime: 0
+  intervalAtkTime: 1.2
   DropItem: {fileID: 0}

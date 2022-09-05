@@ -961,7 +961,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7773585, y: 1}
+    m_SensorSize: {x: 1.7772727, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1039,7 +1039,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7773585, y: 1}
+    m_SensorSize: {x: 1.7772727, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1064,6 +1064,24 @@ Transform:
   m_Father: {fileID: 1326094426}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &427913326 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100074, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
+  m_PrefabInstance: {fileID: 891442485}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &427913329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427913326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62907cb360f142d4481cff46d1d3e50c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataAtk: {fileID: 11400000, guid: 01437e497ab543c409daf0f0ba12aa52, type: 2}
 --- !u!1 &468461430
 GameObject:
   m_ObjectHideFlags: 0
@@ -4213,7 +4231,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7773585, y: 1}
+    m_SensorSize: {x: 1.7772727, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4896,9 +4914,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataEnemy: {fileID: 11400000, guid: 2d4b94b46123a40469a58a3b548c8ef8, type: 2}
   enemyState: 0
-  target_msak:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!195 &1629440449
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4921,6 +4936,20 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &1629440452
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629440445}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1
+  m_Height: 5.85
+  m_Direction: 1
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!1 &1631781941
 GameObject:
   m_ObjectHideFlags: 0
@@ -4937,7 +4966,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1631781942
 Transform:
   m_ObjectHideFlags: 0
@@ -5485,9 +5514,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 761f8f59a184a2a4096ec85cb1c8feff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dataAtk: {fileID: 11400000, guid: 178a66fb820f5fd4381713bf986fa195, type: 2}
   bullet:
   - {fileID: 1179182271045012367, guid: 3a9ec04342732f14c93b17dd97aabfa7, type: 3}
   ShootTrans: {fileID: 942488644}
+  Equipment: 0
+  RightHandTransform: {fileID: 0}
 --- !u!1 &1774674177
 GameObject:
   m_ObjectHideFlags: 0
@@ -5577,7 +5609,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7773585, y: 1}
+    m_SensorSize: {x: 1.7772727, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

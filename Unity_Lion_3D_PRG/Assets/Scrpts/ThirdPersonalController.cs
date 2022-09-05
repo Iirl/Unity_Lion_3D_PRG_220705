@@ -189,11 +189,13 @@ namespace agi
         public void AnimeControl(int idx)
         {
             foreach (var m in Enum.GetValues(typeof(Motion))) if ((int)m == idx) actorMV = (Motion)m;
+            string motionName = actorMV.ToString();
             try
             {
-                if (idx == 1) ani.SetTrigger(actorMV.ToString());
+                if (idx == 1) ani.SetTrigger(motionName);
                 //else if (idx == 4) isJump = true;
-                else if (idx == 5) ani.SetTrigger(actorMV.ToString());
+                else if (idx == 5) ani.SetTrigger(motionName);
+                else if (idx == 6) ani.SetTrigger(motionName);
 
             }
             catch (Exception)
