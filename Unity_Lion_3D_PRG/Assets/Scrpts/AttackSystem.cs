@@ -12,7 +12,11 @@ namespace agi
         #region 欄位
         [SerializeField]
         DataAtk dataAtk;
+        protected Animator ani;
         protected bool isAnimating;
+        [SerializeField]
+        protected string name;
+
         #endregion
         // 需要執行攻擊時執行此程式方法。
         public void StartAttack() =>  StartCoroutine(AttackFlow());
@@ -31,22 +35,34 @@ namespace agi
         private void CheckAttackArea()
         {
             //print("檢查攻擊區域");
+            //if (!ani.GetCurrentAnimatorStateInfo(0).IsName(name)) return;
             Collider[] hits = Physics.OverlapBox(transform.position + transform.TransformDirection(dataAtk.attackOffset),
                 dataAtk.attackArea / 2,
                 transform.rotation,
                 dataAtk.targetMask);
-            if (hits.Length > 0) print(hits[0].name);
+
+            if (hits.Length > 0)
+            {
+                hits[0].GetComponent<HealthSystem>().GetHurt(dataAtk.attack);
+            }
             //foreach (var e in hits) print(e.name);
 
         }
         protected virtual void StopAttack() { }
         #endregion        
-        private void OnDrawGizmos()
+
+
+        protected virtual void Awake()
+        {
+            ani = GetComponent<Animator>();
+        }
+        private void OnDrawGizmosSelected()
         {
             Gizmos.color = dataAtk.attackRangeColor;
             Gizmos.matrix = Matrix4x4.TRS(transform.position + transform.TransformDirection(dataAtk.attackOffset),
                 transform.rotation, transform.localScale);
             Gizmos.DrawCube(Vector3.zero, dataAtk.attackArea);
         }
+        
     }
 }

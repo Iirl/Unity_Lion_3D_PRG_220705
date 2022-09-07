@@ -30,5 +30,8 @@ namespace agi
         public float intervalAtkTime;
         [SerializeField, Header("掉落道具")]
         private GameObject DropItem;
+        [SerializeField, Header("Editor顯示顏色")]
+        public Color attackRangeColor;
+        public Color traceRangeColor;
     }
 }

@@ -107,10 +107,11 @@ namespace agi
             // 動畫控制 x為左右； z 為前後
             ani.SetFloat(parBMove, z/2);
             ani.SetFloat(parRun, x/2);
+            //print(ani.GetFloat(parBMove));
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 ani.SetFloat(parBMove, ani.GetFloat(parBMove) * 2);
-                ani.SetFloat(parRun, z);
+                ani.SetFloat(parRun, ani.GetFloat(parRun) * 2);
             }
 
 
@@ -206,17 +207,17 @@ namespace agi
         }
         #endregion
 
-        enum Motion
-        {
-            None,
-            toHurt,
-            BasicMove, 
-            Running,
-            toJump,
-            isShoot,
-            toSWAtk,
-            toSWHeavy,
-            actBlock
-        }
     }
+}
+public enum Motion
+{
+    isDead,
+    toHurt,
+    BasicMove,
+    Running,
+    toJump,
+    isShoot,
+    toSWAtk,
+    toSWHeavy,
+    actBlock
 }

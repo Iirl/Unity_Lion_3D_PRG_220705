@@ -5,6 +5,12 @@ namespace agi
 {
     public class EnemyAttack : AttackSystem
     {
-
+        [SerializeField]
+        Animator mainAnimator;
+        protected override void Awake()
+        {
+            base.Awake();
+            ani = mainAnimator;
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace agi
     public class AttackController : AttackSystem
     {
         ThirdPersonalController tirdPC;
-        private Animator ani;
+        
         private bool isAtk;
         #region 公用欄位
         [SerializeField, Header("子彈")]
@@ -20,6 +20,7 @@ namespace agi
         [SerializeField, Header("右手位置")]
         Transform RightHandTransform;
         #endregion
+
 
         #region 方法
         private IEnumerator ShootInstantiate(int blc=0)
@@ -64,12 +65,13 @@ namespace agi
 
         #region 事件
         // Start is called before the first frame update
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             tirdPC = GetComponent<ThirdPersonalController>() ?? null;
-            ani = GetComponent<Animator>();
-
         }
+
+
         void Start()
         {
             if (tirdPC == null) print("NULL");
@@ -82,15 +84,22 @@ namespace agi
         {
             if (Input.GetKeyUp("1")) EquipChange(0);
             if (Input.GetKeyUp("2")) EquipChange(1);
+            if (!isAnimating) AttackState();
+            
+        }
+
+        private void AttackState()
+        {
             switch (Equipment)
             {
                 case Equiped.isSWS:
-                    if (Input.GetAxisRaw("Fire1") == 1) {
+                    if (Input.GetAxisRaw("Fire1") == 1)
+                    {
                         //print("刀劍攻擊狀態");
                         tirdPC.AnimeControl(6);
                         tirdPC.enabled = false;
                         StartAttack();
-
+                        
                     }
                     break;
                 case Equiped.isGun:

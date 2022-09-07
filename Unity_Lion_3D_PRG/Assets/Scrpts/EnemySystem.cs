@@ -167,14 +167,20 @@ namespace agi
             StateSwitch();
             if(!enemyState.Equals("isAtking")) CheckTargetTrackObject();
         }
+        private void OnDisable()
+        {
+            //nma.Stop();  //盡量不要用過時的方法，更新上容易出錯。
+            nma.isStopped = true;
+        }
         private void OnDrawGizmosSelected()
         {
             // 設定攻擊範圍
-            Gizmos.color = new Color(1, 0, 0, 0.15f);
+            //Gizmos.color = new Color(1, 0, 0, 0.15f);
+            Gizmos.color = dataEnemy.attackRangeColor;
             Gizmos.DrawSphere(transform.position + Vector3.up, dataEnemy.rangeAttack);
 
             // 設定追蹤範圍
-            Gizmos.color = new Color(0, 1, 0, 0.25f);
+            Gizmos.color = dataEnemy.traceRangeColor;
             Gizmos.DrawSphere(transform.position + Vector3.up, dataEnemy.rangeTrack);
 
             // 設定追蹤目標

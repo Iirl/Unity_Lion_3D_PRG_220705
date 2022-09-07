@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b54821e729840ff48881088ec4e297f6, type: 3}
+  m_Name: EnemyData_Skeleton
+  m_EditorClassIdentifier: 
+  name: "\u9AB7\u9871"
+  hp: 100
+  attack: 10
+  rangeTrack: 12
+  rangeAttack: 2
+  speedWalk: 4
+  probilityItem: 0.5
+  waitTimeRange: {x: 1, y: 5}
+  target_msak:
+    serializedVersion: 2
+    m_Bits: 64
+  intervalAtkTime: 1.2
+  DropItem: {fileID: 0}
+  attackRangeColor: {r: 0.94509804, g: 0.24761565, b: 0.24761565, a: 0.15686275}
+  traceRangeColor: {r: 0.63652545, g: 0.9056604, b: 0.65426016, a: 0.050980393}
