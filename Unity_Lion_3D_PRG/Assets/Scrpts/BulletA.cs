@@ -32,7 +32,7 @@ public class BulletA : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //Destroy(gameObject);
-        //print("hit");
+        print("hit");
         isCollison = true;
         
     }
