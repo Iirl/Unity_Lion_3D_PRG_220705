@@ -12,5 +12,11 @@ namespace agi
             base.Awake();
             ani = mainAnimator;
         }
+
+        protected override bool AnimateAttack()
+        {
+            if (!ani.GetCurrentAnimatorStateInfo(0).IsName(name)) return true;
+            else return false;
+        }
     }
 }

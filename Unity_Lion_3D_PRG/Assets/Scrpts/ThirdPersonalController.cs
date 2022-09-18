@@ -179,15 +179,11 @@ namespace agi
             SoundControl(0,0.4f,pth);
             CancelInvoke("PlayWalk");
         }
-        public void PlayShoot()
-        {                       
-            SoundControl(3);
-            CancelInvoke("PlayShoot");
-        }
+        public void PlayTrack(int i) => SoundControl(i); //播放音效
         /// <summary>
         /// 動畫執行控制，所有動畫設定在這裡設。
         /// </summary>
-        public void AnimeControl(int idx)
+        public void AnimeControl(int idx, float par=0)
         {
             foreach (var m in Enum.GetValues(typeof(Motion))) if ((int)m == idx) actorMV = (Motion)m;
             string motionName = actorMV.ToString();
@@ -195,8 +191,9 @@ namespace agi
             {
                 if (idx == 1) ani.SetTrigger(motionName);
                 //else if (idx == 4) isJump = true;
-                else if (idx == 5) ani.SetTrigger(motionName);
+                else if (idx == 5) ani.SetBool(motionName, par == 0);
                 else if (idx == 6) ani.SetTrigger(motionName);
+                else if (idx == 8) ani.SetFloat(motionName,par);
 
             }
             catch (Exception)
@@ -219,5 +216,6 @@ public enum Motion
     isShoot,
     toSWAtk,
     toSWHeavy,
+    actAttack,
     actBlock
 }

@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ad36d761b1a9744a0d674ea51d6e49, type: 3}
   m_Name: EnemyDataAtks_Skeleton
   m_EditorClassIdentifier: 
-  attack: 38
+  attack:
+  - 50
+  - 5
   attackInterval: 1
   attackArea: {x: 2, y: 4.35, z: 1.5}
   attackOffset: {x: -0.75, y: -0.5, z: 0}

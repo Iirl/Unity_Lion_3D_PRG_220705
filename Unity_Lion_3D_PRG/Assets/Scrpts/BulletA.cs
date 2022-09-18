@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using agi;
 using UnityEngine;
+using UnityEngine.Rendering.VirtualTexturing;
 
 public class BulletA : MonoBehaviour
 {
     Rigidbody rb;
+    AttackController ACsystem;
     bool isCollison;
 
     private void ActionTime()
@@ -15,6 +18,7 @@ public class BulletA : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        ACsystem = FindObjectOfType<AttackController>();
     }
 
     // Start is called before the first frame update
@@ -32,9 +36,13 @@ public class BulletA : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //Destroy(gameObject);
-        print("hit");
+        try
+        {
+            ACsystem.DmgCheck(collision.gameObject, 1);            
+        }
+        catch (System.Exception) { }
         isCollison = true;
-        
+        Destroy(gameObject);
     }
 
 }

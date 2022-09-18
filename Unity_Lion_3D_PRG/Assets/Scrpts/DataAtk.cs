@@ -8,7 +8,7 @@ namespace agi
     public class DataAtk : ScriptableObject
     {
         [SerializeField, Header("¶Ë®`­È"),Range(0,1000)]
-        public float attack;
+        public float[] attack;
         [SerializeField, Header("§ðÀ»©µ¿ð"), Range(0, 10)]
         public float attackInterval;
         [SerializeField, Header("§ðÀ»½d³ò")]

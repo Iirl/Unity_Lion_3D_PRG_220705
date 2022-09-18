@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ad36d761b1a9744a0d674ea51d6e49, type: 3}
   m_Name: PlayerDataAtks
   m_EditorClassIdentifier: 
-  attack: 67
+  attack:
+  - 50
+  - 5
   attackInterval: 0.2
   attackArea: {x: 1.5, y: 1.5, z: 1.37}
   attackOffset: {x: -0.2, y: 0.8, z: 0.7}

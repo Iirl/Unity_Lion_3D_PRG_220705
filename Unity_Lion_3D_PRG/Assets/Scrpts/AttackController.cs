@@ -8,8 +8,7 @@ namespace agi
     public class AttackController : AttackSystem
     {
         ThirdPersonalController tirdPC;
-        
-        private bool isAtk;
+
         #region 公用欄位
         [SerializeField, Header("子彈")]
         GameObject[] bullet;
@@ -23,19 +22,18 @@ namespace agi
 
 
         #region 方法
-        private IEnumerator ShootInstantiate(int blc=0)
+        private IEnumerator ShootInstantiate(int blc = 0)
         {
             // blc: Bullet count;
-            
-            Instantiate(bullet[blc],ShootTrans.position + Vector3.one * Random.value /2, ShootTrans.rotation);
+
+            Instantiate(bullet[blc], ShootTrans.position + Vector3.one * Random.value / 2, ShootTrans.rotation);
             yield return new WaitForSeconds(0.2f);
-            isAtk = false;
         }
 
         private void EquipControll()
         {
-            int ename=-1;
-            string[] equip = { Equiped.isSWS.ToString(), (Equiped.isGun.ToString())};
+            int ename = -1;
+            string[] equip = { Equiped.isSWS.ToString(), (Equiped.isGun.ToString()) };
             foreach (var e in equip) ani.SetBool(e, false);
             switch (Equipment)
             {
@@ -57,10 +55,20 @@ namespace agi
             EquipControll();
         }
 
+        #region 複寫方法
+        protected override void SoundAttack(bool hit)
+        {
+            if (Equipment == Equiped.isSWS)
+            {
+                if (hit) tirdPC.PlayTrack(4);
+                else tirdPC.PlayTrack(5);
+            }
+        }
         protected override void StopAttack()
         {
             tirdPC.enabled = true;
         }
+        #endregion
         #endregion
 
         #region 事件
@@ -85,7 +93,7 @@ namespace agi
             if (Input.GetKeyUp("1")) EquipChange(0);
             if (Input.GetKeyUp("2")) EquipChange(1);
             if (!isAnimating) AttackState();
-            
+
         }
 
         private void AttackState()
@@ -98,18 +106,21 @@ namespace agi
                         //print("刀劍攻擊狀態");
                         tirdPC.AnimeControl(6);
                         tirdPC.enabled = false;
-                        StartAttack();
-                        
+                        StartAttack(0);
                     }
                     break;
                 case Equiped.isGun:
-                    if (Input.GetAxisRaw("Fire1") == 1 && Input.GetAxisRaw("Fire2") == 1)
+                    if (Input.GetMouseButton(1))
                     {
-                        if (!isAtk) StartCoroutine(ShootInstantiate());
                         tirdPC.AnimeControl(5);
-                        tirdPC.Invoke("PlayShoot", 0.15f);
-                        isAtk = true;
+                        if (Input.GetMouseButtonUp(0) && !isAnimating)
+                        {
+                            StartAttack(1);
+                            StartCoroutine(ShootInstantiate());
+                            tirdPC.PlayTrack(3);
+                        }
                     }
+                    else tirdPC.AnimeControl(5, -1);
                     break;
                 default:
                     break;

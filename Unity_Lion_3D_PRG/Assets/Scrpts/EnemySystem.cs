@@ -135,7 +135,7 @@ namespace agi
             MoveAnimateControl(0);
             if (atkTime >= dataEnemy.intervalAtkTime) { 
                 ani.SetTrigger("toAtk");
-                enemyAttack.StartAttack();
+                enemyAttack.StartAttack(0);
                 enemyState = enemyState.ToTrack();
                 atkTime = 0;
             } else
