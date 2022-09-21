@@ -64,15 +64,15 @@ Material:
     - _CullMode: 0
     - _CullModeForward: 0
     - _DepthOffsetEnable: 0
-    - _Dispose_Value: 1
+    - _Dispose_Value: -3
     - _DoubleSidedEnable: 1
     - _DoubleSidedGIMode: 0
     - _DoubleSidedNormalMode: 1
     - _DstBlend: 10
     - _EnableBlendModePreserveSpecularLighting: 0
     - _EnableFogOnTransparent: 1
-    - _Line_Offset: 0.0325
-    - _Noise_Size: 120
+    - _Line_Offset: 0.0625
+    - _Noise_Size: 50
     - _OpaqueCullMode: 2
     - _RayTracing: 0
     - _ReceivesSSR: 1
@@ -107,6 +107,7 @@ Material:
     - _ZWrite: 1
     - __2: 1
     - __3: 0
+    - dpValue: 1
     m_Colors:
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}

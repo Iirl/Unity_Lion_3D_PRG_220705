@@ -39,7 +39,8 @@ namespace agi
             hp -= point;
             //print($"HP{hp},DMG{point} , %{hp / dataHealth.maxHp}");
             ani.SetTrigger(parHurt);
-            if (hp <= 0) Dead();
+            //if(!ani.GetBool("isDead")) 
+                if (hp <= 0) Dead();
             imageHealth.fillAmount = hp / dataHealth.maxHp;
         }
 

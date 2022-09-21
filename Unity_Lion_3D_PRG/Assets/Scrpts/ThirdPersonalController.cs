@@ -54,7 +54,7 @@ namespace agi
         private void Start()
         {
             CameraFocus();
-            
+
         }
         private void Update()
         {
@@ -68,9 +68,18 @@ namespace agi
             CameraFocus();
         }
 
+        private void OnCollisionEnter(Collision collision)
+        {
+            try
+            {
+                collision.gameObject.GetComponent<Rigidbody>().AddForce(direction + Vector3.up * 2);
+            }
+            catch (Exception) { }
+        }
+
         #endregion
 
-        public void  StopMove()
+        public void StopMove()
         {
             ani.SetFloat(Motion.BasicMove.ToString(), 0);
             ani.SetFloat(Motion.Running.ToString(), 0);
@@ -88,10 +97,10 @@ namespace agi
             string parBMove = Motion.BasicMove.ToString();
             string parHurt = Motion.toHurt.ToString();
             string parRun = Motion.Running.ToString();
-            if (ani.GetBool(parHurt)) return false;            
+            if (ani.GetBool(parHurt)) return false;
             direction.x = x;
             direction.z = z;
-            bool move = (x+z !=0)? true : false;
+            bool move = (x + z != 0) ? true : false;
             float xSpeed = moveSpd;
             // 角色移動
             direction = transform.TransformDirection(direction);  //  將區域角度轉成世界角度
@@ -105,8 +114,8 @@ namespace agi
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
 
             // 動畫控制 x為左右； z 為前後
-            ani.SetFloat(parBMove, z/2);
-            ani.SetFloat(parRun, x/2);
+            ani.SetFloat(parBMove, z / 2);
+            ani.SetFloat(parRun, x / 2);
             //print(ani.GetFloat(parBMove));
             if (Input.GetKey(KeyCode.LeftShift))
             {
@@ -120,7 +129,7 @@ namespace agi
         /// <summary>
         /// 跳躍控制
         /// </summary>
-        private void Jump(Motion motion=Motion.toJump)
+        private void Jump(Motion motion = Motion.toJump)
         {
             if (Input.GetKeyDown(KeyCode.Space)) isJump = true;
             if (isJump && ccller.isGrounded)
@@ -130,7 +139,8 @@ namespace agi
                 SoundControl(1, 1);
                 isJump = false;
             }
-            else if (!ccller.isGrounded) { 
+            else if (!ccller.isGrounded)
+            {
                 ani.SetFloat(motion.ToString(), 0.5f);
                 direction.x /= 2;
                 direction.z /= 2;
@@ -158,7 +168,7 @@ namespace agi
         /// 2: 受傷
         /// 3: 攻擊
         /// </param>
-        private void SoundControl(int i, float vol=0.7f, float pitch=1)
+        private void SoundControl(int i, float vol = 0.7f, float pitch = 1)
         {
             ads.volume = vol;
             ads.pitch = pitch;
@@ -176,14 +186,14 @@ namespace agi
         {
             float pth = 1;
             if (Input.GetKey(KeyCode.LeftShift)) pth = 1.5f;
-            SoundControl(0,0.4f,pth);
+            SoundControl(0, 0.4f, pth);
             CancelInvoke("PlayWalk");
         }
         public void PlayTrack(int i) => SoundControl(i); //播放音效
         /// <summary>
         /// 動畫執行控制，所有動畫設定在這裡設。
         /// </summary>
-        public void AnimeControl(int idx, float par=0)
+        public void AnimeControl(int idx, float par = 0)
         {
             foreach (var m in Enum.GetValues(typeof(Motion))) if ((int)m == idx) actorMV = (Motion)m;
             string motionName = actorMV.ToString();
@@ -193,7 +203,7 @@ namespace agi
                 //else if (idx == 4) isJump = true;
                 else if (idx == 5) ani.SetBool(motionName, par == 0);
                 else if (idx == 6) ani.SetTrigger(motionName);
-                else if (idx == 8) ani.SetFloat(motionName,par);
+                else if (idx == 8) ani.SetFloat(motionName, par);
 
             }
             catch (Exception)

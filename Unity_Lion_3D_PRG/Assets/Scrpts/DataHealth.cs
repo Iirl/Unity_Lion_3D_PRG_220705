@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -16,8 +17,8 @@ namespace agi
         public float maxHp => hp;
         [SerializeField, Header("是否掉落")]
         public bool isDropItem;
-        [SerializeField, Header("掉落物"), NonReorderable,HideInInspector]
-        public GameObject[] dropItem;
+        [SerializeField, Tooltip("掉落物"), HideInInspector]
+        public  List<GameObject> dropItem;
         [SerializeField, Tooltip("掉落機率"), Range(0,1), HideInInspector]
         public float dropProb;
     }
@@ -32,7 +33,7 @@ namespace agi
         private void OnEnable()
         {
             spIsDrop = serializedObject.FindProperty(nameof(DataHealth.isDropItem));
-            spItems = serializedObject.FindProperty(nameof(DataHealth.dropItem));
+            spItems = serializedObject.FindProperty("dropItem");
             spProb = serializedObject.FindProperty(nameof(DataHealth.dropProb));
         }
 
@@ -42,7 +43,7 @@ namespace agi
             serializedObject.Update();
             if (spIsDrop.boolValue)
             {
-                EditorGUILayout.PropertyField(spItems.GetArrayElementAtIndex(0));
+                EditorGUILayout.PropertyField(spItems);
                 EditorGUILayout.PropertyField(spProb);
             }
             serializedObject.ApplyModifiedProperties();
