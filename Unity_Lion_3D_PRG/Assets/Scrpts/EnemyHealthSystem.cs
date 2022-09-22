@@ -55,6 +55,7 @@ namespace agi
                 drop = obPS.SpwanObj(dataHealth.dropItem[item]);
                 //GameObject drop = obPS.SpwanObj(); 
                 drop.transform.position = transform.position + Random.insideUnitSphere + Vector3.up;
+                //drop.GetComponent<ObjectPoolSystem>().RelaseObj 
             }
         }
         /// <summary>

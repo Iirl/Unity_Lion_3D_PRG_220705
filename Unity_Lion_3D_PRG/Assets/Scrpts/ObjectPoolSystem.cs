@@ -20,10 +20,10 @@ namespace agi
             outsideObj = new List<GameObject>();
         }
         // 物件池基本建構子內容
-        protected virtual GameObject CreateObj() => Instantiate(PoolObj);
-        protected virtual void SpawnDestory(GameObject obj) => Destroy(obj);
-        protected virtual void SpawnRelease(GameObject obj) => obj.SetActive(false);
-        protected virtual void SpawnTake(GameObject obj) => obj.SetActive(true);
+        protected virtual GameObject CreateObj() => Instantiate(PoolObj);           //若沒有釋放物就創造
+        protected virtual void SpawnDestory(GameObject obj) => Destroy(obj);        //設定破壞物件的條件
+        protected virtual void SpawnRelease(GameObject obj) => obj.SetActive(false);//Release 物件
+        protected virtual void SpawnTake(GameObject obj) => obj.SetActive(true);    //Get 物件
         // 公開調用方法
         public int setLimit { set { limit = value; } }
         public int getLimit => limit;
