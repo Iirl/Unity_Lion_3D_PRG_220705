@@ -110,6 +110,10 @@ namespace agi
             ccller.Move(direction * xSpeed * Time.deltaTime);
             // 跟著攝影機轉
             if (!Input.GetKey(KeyCode.F)) transform.rotation = Quaternion.Lerp(transform.rotation, tfCamera.rotation, spineSpd);
+			// 看著滑鼠旋轉=> 滑鼠座標 = 攝影機座標
+			// ??? 
+			// Vector3 mousePostion = Camera.main.ScreenToWorldPoint(Input.mousePostion);
+			// tfCamera.rotation = Quaternion.Lerp(tfCamera.rotation, Quaternion.euler(mousePostion), spineSpd);
             // 人物角度固定
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
 
