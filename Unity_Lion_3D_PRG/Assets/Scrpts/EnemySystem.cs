@@ -13,6 +13,7 @@ namespace agi
 
         [SerializeField, Header("敵人資料")]
         private DataEnemy dataEnemy;
+        //[SerializeField, Header("初始位置")]
         private Vector3 original;
         [SerializeField]
         private GeneMotion enemyState;

@@ -14,6 +14,10 @@ namespace agi
         DataNPC npcData;
         [SerializeField, Header("NPC Camera")]
         GameObject npcCam;
+        [SerializeField]
+        GameObject missionObj, stageObj;
+        [SerializeField]
+        CheckPoint relectionCheckPoint;
         CinemachineVirtualCamera npcCam_machine;
         // 取得玩家資料與控制器元件
         ThirdPersonalController playerCtrl;
@@ -25,6 +29,9 @@ namespace agi
         Animator aniTalkTips,ani;
         string parTalk = "TalkIn",parNpcTalk = "isTalk";
         bool isTrigger;
+        bool isFirst = true;
+        /////////////////////////
+        public void SetNPCData(DataNPC dpc) => npcData = dpc;
 
         private void Awake()
         {
@@ -109,6 +116,14 @@ namespace agi
             //放入要做的事
             ani.SetBool(parNpcTalk, false);
             transform.rotation = Self_rot;
+            if (isFirst & missionObj)
+            {
+                missionObj.SetActive(true);
+                stageObj.SetActive(false);
+                if (relectionCheckPoint) relectionCheckPoint.DisableNPC();
+                isFirst = false;
+
+            }
         }
     }
 }

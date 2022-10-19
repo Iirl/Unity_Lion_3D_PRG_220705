@@ -17,11 +17,12 @@ namespace agi
         [SerializeField, Header("°Ê§@")]
         protected Animator ani;
         protected AttackSystem attackSystem;
-        private float hp;
+        protected float hp;
         private string parHurt = Motion.toHurt.ToString();
         private string parDead = Motion.isDead.ToString();
         //
         public void GetHurt(float f) => Hurt(f);
+        public virtual void GetHeal(float f) => Heal(f);
 
         protected virtual void Awake()
         {
@@ -41,6 +42,16 @@ namespace agi
             ani.SetTrigger(parHurt);
             //if(!ani.GetBool("isDead")) 
                 if (hp <= 0) Dead();
+            imageHealth.fillAmount = hp / dataHealth.maxHp;
+        }
+        /// <summary>
+        /// HP«ì´_
+        /// </summary>
+        /// <param name="point">«ì´_¶q</param>
+        private void Heal(float point)
+        {
+            hp += point;
+            if (hp >= dataHealth.maxHp) hp = dataHealth.maxHp;
             imageHealth.fillAmount = hp / dataHealth.maxHp;
         }
 

@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace agi
 {
@@ -23,6 +25,7 @@ namespace agi
         public float dropProb;
     }
 
+#if UNITY_EDITOR
     [CustomEditor(typeof(DataHealth))]
     public class HealthEditor : Editor
     {
@@ -49,5 +52,5 @@ namespace agi
             serializedObject.ApplyModifiedProperties();
         }
     }
-
+#endif
 }

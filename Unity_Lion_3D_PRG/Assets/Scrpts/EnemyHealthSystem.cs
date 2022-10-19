@@ -12,8 +12,10 @@ namespace agi
         EnemySystem es;
         private Material matDissolve;
         private string nameDissolve = "dpValue";
-        EnemyObjectPool obPS;
+        EnemyObjectPool dropItemSP;
         GameObject drop;
+        //
+        int probCount = 0;
 
         protected override void Awake()
         {
@@ -22,9 +24,22 @@ namespace agi
             es = GetComponent<EnemySystem>();
             matDissolve = GetComponentsInChildren<Renderer>()[1].material;
             matDissolve.SetFloat(nameDissolve, 1);
-            obPS = FindObjectOfType<EnemyObjectPool>();
+            dropItemSP = GameObject.Find("掉落物件池系統").GetComponent<EnemyObjectPool>();
+        }
+        /// <summary>
+        /// 死亡時會執行一次
+        /// </summary>
+        private void OnDisable()
+        {
+            hp = dataHealth.hp;
+            imageHealth.fillAmount = 1;
+            imageHealth.transform.parent.gameObject.SetActive(true);
+            es.enabled = true;
+            matDissolve.SetFloat(nameDissolve, 1);
         }
 
+        public delegate void delegateDead();
+        public delegateDead onDead;
         /// <summary>
         /// 處理死亡效果
         /// </summary>
@@ -44,19 +59,17 @@ namespace agi
         /// </summary>
         private void Drop()
         {
-            float rand = Random.value;
+            float rand = probCount > 5 ? probCount = 0: Random.value;
+
             if ( rand <= dataHealth.dropProb)
             {
-                int item = Random.Range(0,dataHealth.dropItem.Count);/*
-                GameObject drop= Instantiate(dataHealth.dropItem[item],
-                                    transform.position + Vector3.up * 3,
-                                    Random.rotation);
-                Destroy(drop, 60);//*/
-                drop = obPS.SpwanObj(dataHealth.dropItem[item]);
-                //GameObject drop = obPS.SpwanObj(); 
+                //print(dataHealth.dropItem.Count);
+                int item = Random.Range(0,dataHealth.dropItem.Count);
+                drop = dropItemSP.SpwanObj(dataHealth.dropItem[item]);
                 drop.transform.position = transform.position + Random.insideUnitSphere + Vector3.up;
-                //drop.GetComponent<ObjectPoolSystem>().RelaseObj 
+
             }
+            probCount++;            
         }
         /// <summary>
         /// 溶解程序
@@ -74,6 +87,8 @@ namespace agi
                 matDissolve.SetFloat(nameDissolve, value);
                 yield return null;
             }
+            // 在 SpawnSystem 中呼叫，當怪物死亡時會透過生成系統回收
+            onDead();
         }
     }
 }

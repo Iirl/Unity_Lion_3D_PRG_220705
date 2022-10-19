@@ -23,5 +23,10 @@ namespace agi
             tpc.enabled = !die;
         }
 
+        public override void GetHeal(float f)
+        {
+            base.GetHeal(f);
+            tpc.PlayTrack(7); // ¦^´_­µ®Ä
+        }
     }
 }

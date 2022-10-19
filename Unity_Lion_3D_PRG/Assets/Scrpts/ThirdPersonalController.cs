@@ -78,7 +78,8 @@ namespace agi
         }
 
         #endregion
-
+        // 動畫執行控制 = AnimeControl
+        public void PlayTrack(int i) => SoundControl(i); //播放音效
         public void StopMove()
         {
             ani.SetFloat(Motion.BasicMove.ToString(), 0);
@@ -170,7 +171,11 @@ namespace agi
         /// 0: 走路
         /// 1: 跳躍
         /// 2: 受傷
-        /// 3: 攻擊
+        /// 3: 槍械攻擊
+        /// 4: BI
+        /// 5: BO
+        /// 6: 獲得強化
+        /// 7: 獲得恢復
         /// </param>
         private void SoundControl(int i, float vol = 0.7f, float pitch = 1)
         {
@@ -193,7 +198,6 @@ namespace agi
             SoundControl(0, 0.4f, pth);
             CancelInvoke("PlayWalk");
         }
-        public void PlayTrack(int i) => SoundControl(i); //播放音效
         /// <summary>
         /// 動畫執行控制，所有動畫設定在這裡設。
         /// </summary>
